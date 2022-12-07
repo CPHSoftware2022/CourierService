@@ -28,7 +28,7 @@ public class UpdateCourierTest {
     GraphQLTestTemplate graphQLTestTemplate;
 
     @Test
-    void returnSpecificCourier() throws IOException, JSONException {
+    void returnUpdatingCourier() throws IOException, JSONException {
 
         var updateCourier = "update-courier.json*";
 
