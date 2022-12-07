@@ -29,7 +29,7 @@ public class CreateCourierTests {
     GraphQLTestTemplate graphQLTestTemplate;
 
     @Test
-    void returnSpecificCourier() throws IOException, JSONException {
+    void returnCreatingCourier() throws IOException, JSONException {
 
         var createCourier = "create-courier.json*";
 
