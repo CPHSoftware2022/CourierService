@@ -1,0 +1,17 @@
+mutation{
+    update(
+        id: 1
+        firstName: "julemand"
+        lastName: "Hansen"
+        password: "hejhejehj"
+        email: "Julemanden@jul.dk"
+        available: true
+    ) {
+        courierId
+        firstName
+        lastName
+        password
+        email
+        available
+    }
+}

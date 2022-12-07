@@ -1,0 +1,15 @@
+mutation{
+    addCourier(
+        firstName: "julemand"
+        lastName: "Hansen"
+        password: "hejhejehj"
+        email: "Julemanden@jul.dk"
+        available: true
+    ) {
+        firstName
+        lastName
+        password
+        email
+        available
+    }
+}

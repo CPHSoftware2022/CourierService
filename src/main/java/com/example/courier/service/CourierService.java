@@ -1,10 +1,12 @@
 package com.example.courier.service;
 
-import com.coxautodev.graphql.tools.GraphQLMutationResolver;
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+//import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+//import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.example.courier.model.Courier;
 import com.example.courier.repository.CourierRepository;
 
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

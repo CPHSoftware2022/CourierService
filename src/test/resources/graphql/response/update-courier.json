@@ -1,0 +1,12 @@
+{
+  "data": {
+    "update": {
+      "courierId": "1",
+      "firstName": "julemand",
+      "lastName": "Hansen",
+      "password": "hejhejehj",
+      "email": "Julemanden@jul.dk",
+      "available": true
+    }
+  }
+}

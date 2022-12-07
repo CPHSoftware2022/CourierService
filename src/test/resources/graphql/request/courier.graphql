@@ -1,0 +1,10 @@
+{
+    findOneCourier(id: 1) {
+        courierId
+        firstName
+        lastName
+        email
+        password
+        available
+    }
+}
