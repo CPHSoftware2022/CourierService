@@ -1,14 +1,12 @@
 {
   "data": {
-    "findOneCourier": [
-      {
-        "courierId": "1",
-        "firstName": "Kenneth",
-        "lastName": "Hansen",
-        "email": "kenneth@kenneth.dk",
-        "password": "password123",
-        "available": true
-      }
-    ]
+    "findOneCourier": {
+      "courierId": "1",
+      "firstName": "Kenneth",
+      "lastName": "Hansen",
+      "password": "password123",
+      "email": "kenneth@kenneth.dk",
+      "available": true
+    }
   }
 }

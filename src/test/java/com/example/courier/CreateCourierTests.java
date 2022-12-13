@@ -31,16 +31,15 @@ public class CreateCourierTests {
     @Test
     void returnCreatingCourier() throws IOException, JSONException {
 
-        var createCourier = "create-courier.json*";
+        String createCourier = "create-courier.json*";
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate
                 .postForResource(format(CREATE_COURIER_REQUEST_PATH, createCourier));
 
-        var expectedResponseBody = read(format(CREATE_COURIER_RESPONSE_PATH, createCourier));
+        String expectedResponseBody = read(format(CREATE_COURIER_RESPONSE_PATH, createCourier));
         System.out.println(expectedResponseBody);
 
         assertThat(graphQLResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-
 
         assertEquals(expectedResponseBody, graphQLResponse.getRawResponse().getBody(), true);
     }

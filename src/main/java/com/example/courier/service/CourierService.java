@@ -1,18 +1,22 @@
 package com.example.courier.service;
 
-//import com.coxautodev.graphql.tools.GraphQLMutationResolver;
-//import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import com.example.courier.kafka.ProducerService;
 import com.example.courier.model.Courier;
+import com.example.courier.model.EventModel;
 import com.example.courier.repository.CourierRepository;
 
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.GraphQlResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -22,16 +26,27 @@ public class CourierService implements GraphQLQueryResolver, GraphQLMutationReso
     AtomicInteger id = new AtomicInteger(0);
 
     @Autowired
+    private ProducerService producerService;
+    @Autowired
     private CourierRepository courierRepository;
 
     public List<Courier> findAllCouriers() {
-        return courierRepository.findAll();
+
+        List<Courier> listOfCouriers = courierRepository.findAll();
+
+        ResponseEntity response = new ResponseEntity<>(
+                listOfCouriers,
+                HttpStatus.OK);
+
+        String resultString = "CourierList{size="+listOfCouriers.size()+"}";;
+        EventModel eventModel = new EventModel("GET", response.getStatusCode(), resultString);
+        producerService.sendMessage(eventModel.toString());
+
+        return listOfCouriers;
     }
 
-    public List<Courier> findOneCourier(Integer id) {
-        return findAllCouriers().stream()
-                .filter(courier -> courier.getCourierId() == id)
-                .collect(Collectors.toList());
+    public Optional<Courier> findOneCourier(Integer id) {
+        return courierRepository.findById(id);
     }
 
     public List<Courier> findAvailableCouriers(Boolean available) {
@@ -43,7 +58,8 @@ public class CourierService implements GraphQLQueryResolver, GraphQLMutationReso
     private List<Courier> couriers = new ArrayList<>();
 
     public Courier addCourier(String firstName, String lastName, String email, String password, Boolean available) {
-        return courierRepository
+
+        Courier courier = courierRepository
                 .save(Courier.builder()
                         .firstName(firstName)
                         .lastName(lastName)
@@ -51,7 +67,16 @@ public class CourierService implements GraphQLQueryResolver, GraphQLMutationReso
                         .password(password)
                         .available(available)
                         .build());
+
+        ResponseEntity response = new ResponseEntity<>(
+                courier,HttpStatus.OK);
+
+        EventModel eventModel = new EventModel("POST", response.getStatusCode(), courier.toString());
+        producerService.sendMessage(eventModel.toString());
+
+        return courier;
     }
+
 
     public Courier delete(Integer id) {
         courierRepository.deleteById(id);
@@ -65,6 +90,14 @@ public class CourierService implements GraphQLQueryResolver, GraphQLMutationReso
         courier.setLastName(lastName);
         courier.setEmail(email);
         courier.setPassword(password);
+        courier.setAvailable(available);
+
+        return courierRepository.saveAndFlush(courier);
+    }
+
+    public Courier updateStatus(Integer id, Boolean available) {
+        Courier courier = new Courier();
+        courier.setCourierId(id);
         courier.setAvailable(available);
 
         return courierRepository.saveAndFlush(courier);

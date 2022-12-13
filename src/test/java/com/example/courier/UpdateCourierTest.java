@@ -30,12 +30,12 @@ public class UpdateCourierTest {
     @Test
     void returnUpdatingCourier() throws IOException, JSONException {
 
-        var updateCourier = "update-courier.json*";
+        String updateCourier = "update-courier.json*";
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate
                 .postForResource(format(UPDATE_COURIER_REQUEST_PATH, updateCourier));
 
-        var expectedResponseBody = read(format(UPDATE_COURIER_RESPONSE_PATH, updateCourier));
+        String expectedResponseBody = read(format(UPDATE_COURIER_RESPONSE_PATH, updateCourier));
         System.out.println(expectedResponseBody);
 
         assertThat(graphQLResponse.getStatusCode()).isEqualTo(HttpStatus.OK);

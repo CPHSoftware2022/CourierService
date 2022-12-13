@@ -19,20 +19,21 @@ public class Courier {
     @Column(name = "COURIER_ID")
     private Integer courierId;
 
-    @Column(name = "FIRST_NAME")
+    @Column(name = "FIRST_NAME",nullable = false)
     private String firstName;
 
-    @Column(name = "LAST_NAME")
+    @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", nullable = false)
     private String email;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @Column(name = "AVAILABLE")
+    @Column(name = "AVAILABLE", nullable = false)
     private Boolean available;
+
 
     public Courier(Integer courierId, String firstName, String lastName, String email, String password, Boolean available) {
         this.firstName = firstName;
@@ -41,6 +42,18 @@ public class Courier {
         this.password = password;
         this.available = available;
         this.courierId = courierId;
+    }
+
+    @Override
+    public String toString() {
+        return "Courier{" +
+                "courierId=" + courierId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", available=" + available +
+                '}';
     }
 }
 
